@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Social Studio — Local Terminal Demo</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --border: #dbdbdb;
+      --text: #262626;
+      --muted: #737373;
+      --blue: #0095f6;
+      --background: #fafafa;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 36px 16px;
+    }
+
+    .layout {
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .login-card {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 38px 38px 24px;
+      text-align: center;
+    }
+
+    .brand {
+      display: inline-block;
+      font-size: 35px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      margin: 5px 0 12px;
+      background: linear-gradient(
+        45deg,
+        #feda75,
+        #fa7e1e,
+        #d62976,
+        #962fbf,
+        #4f5bd5
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .field {
+      width: 100%;
+      margin-bottom: 7px;
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      height: 42px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #fafafa;
+      color: var(--text);
+      font-size: 12px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus {
+      border-color: #a8a8a8;
+      box-shadow: 0 0 0 2px rgba(0, 149, 246, 0.08);
+    }
+
+    .password-field input {
+      padding-right: 58px;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .login-button {
+      width: 100%;
+      min-height: 36px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 8px;
+      background: var(--blue);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .login-button:hover {
+      background: #1877f2;
+    }
+
+    .login-button:active {
+      transform: scale(0.98);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 24px 0;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .demo-notice {
+      padding: 12px;
+      margin-top: 18px;
+      border: 1px solid #e8def8;
+      border-radius: 6px;
+      background: #faf7ff;
+      color: #62428a;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .status {
+      display: none;
+      margin-top: 12px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #62428a;
+    }
+
+    .signup-card {
+      margin-top: 10px;
+      background: white;
+      border: 1px solid var(--border);
+      padding: 22px 12px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .signup-card a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 20px 12px 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      margin: 0 7px;
+    }
+
+    @media (max-width: 420px) {
+      body {
+        background: white;
+      }
+
+      main {
+        padding: 16px;
+        align-items: flex-start;
+        padding-top: 55px;
+      }
+
+      .login-card,
+      .signup-card {
+        border-color: transparent;
+      }
+
+      .login-card {
+        padding: 28px 20px 20px;
+      }
+
+      .signup-card {
+        margin-top: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="layout">
+      <section class="login-card" aria-labelledby="brand">
+        <h1 class="brand" id="brand">Social Studio</h1>
+
+        <p class="subtitle">
+          A simple message demo.<br />
+          Send a test message to your local terminal.
+        </p>
+
+        <form id="demo-form" autocomplete="off">
+          <div class="field">
+            <label for="test-message" style="display:block;text-align:left;font-size:12px;margin:0 0 6px;color:#555">
+              Test message (shown in your local terminal)
+            </label>
+            <input
+              id="test-message"
+              name="test-message"
+              type="text"
+              placeholder="Type a test message, e.g. chvsdsb"
+              maxlength="200"
+              autocomplete="off"
+              required
+            />
+          </div>
+
+          <button class="login-button" type="submit">
+            Send to Terminal
+          </button>
+        </form>
+
+        <div class="divider">LOCAL DEMO</div>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+        <div class="demo-notice">
+          Privacy notice: only the message you submit with this button is printed in the terminal on this computer. Do not enter passwords or private information. Nothing is sent to an external service.
+        </div>
+      </section>
+
+      <section class="signup-card">
+        Want to build your own social app?
+        <a href="#demo-form" id="learn-more">Explore the demo</a>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div>
+      <a href="#about">About</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#help">Help</a>
+    </div>
+    <p>© 2026 Social Studio · Independent UI demo</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("demo-form");
+    const messageInput = document.getElementById("test-message");
+    const status = document.getElementById("status");
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const message = messageInput.value.trim();
+      if (!message) {
+        status.style.display = "block";
+        status.textContent = "Please enter a test message first.";
+        return;
+      }
+
+      try {
+        const response = await fetch("/events", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ event: "DEMO_MESSAGE_SUBMITTED", message })
+        });
+        if (!response.ok) throw new Error("The local server rejected the message.");
+        status.style.display = "block";
+        status.textContent = "Sent to your local terminal.";
+        messageInput.value = "";
+        messageInput.focus();
+      } catch (error) {
+        status.style.display = "block";
+        status.textContent = "Could not reach the local terminal. Make sure START_TERMINAL.bat is running.";
+      }
+    });
+
+    document.getElementById("learn-more").addEventListener("click", () => {
+      status.style.display = "block";
+      status.textContent = "Welcome to Social Studio. This page is a local terminal demonstration.";
+    });
+  </script>
+  <script src="/logger.js"></script>
+</body>
+</html>
